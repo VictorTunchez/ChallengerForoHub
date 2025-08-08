@@ -25,6 +25,9 @@ public class Topico {
     private String nombreCurso;
     private String titulo;
     private LocalDateTime fechaCreacion;
+    private Boolean activo;
 
-
+    public void modificar(){
+        this.activo = false;
+    }
 }

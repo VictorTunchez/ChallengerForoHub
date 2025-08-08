@@ -30,9 +30,15 @@ public class TopicoController {
 
     @GetMapping
     public ResponseEntity<List<DetalleTopicoDto>>  listar(){
-        var detalles = repository.findAll().stream()
-                .map(DetalleTopicoDto::new)
-                .toList();
+        var detalles = service.listar();
         return ResponseEntity.ok(detalles);
     }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity eliminar(@PathVariable Long id){
+        service.eliminar(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
