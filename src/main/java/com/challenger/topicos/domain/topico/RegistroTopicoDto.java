@@ -1,7 +1,7 @@
 package com.challenger.topicos.domain.topico;
 
 
-public record RegitroTopicoDto(
+public record RegistroTopicoDto(
         Long idUsuario,
         String mensaje,
         String nombreCurso,

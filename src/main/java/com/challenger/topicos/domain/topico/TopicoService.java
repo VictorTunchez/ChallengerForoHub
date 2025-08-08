@@ -4,7 +4,6 @@ import com.challenger.topicos.domain.usuario.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,7 +15,7 @@ public class TopicoService {
     @Autowired
     private ITopicoRepository topicoRepository;
 
-    public DetalleTopicoDto registrar(RegitroTopicoDto datos){
+    public DetalleTopicoDto registrar(RegistroTopicoDto datos){
         if(!usuarioRepository.existsById(datos.idUsuario())){
             throw new RuntimeException("No existe un usuario con ese ID");
         }
@@ -37,8 +36,16 @@ public class TopicoService {
             throw new RuntimeException("No existe un usuario con ese ID");
         }
         var topico = topicoRepository.getReferenceById(id);
-        topico.modificar();
+        topico.eliminar();
     }
-    
 
+
+    public DetalleTopicoDto actualizar(Long id, ActualizacionTopicoDto datos) {
+        if(!topicoRepository.existsById(id)){
+            throw new RuntimeException("No existe un usuario con ese ID");
+        }
+        var topico = topicoRepository.getReferenceById(id);
+        topico.actualizar(datos);
+        return new DetalleTopicoDto(topico);
+    }
 }

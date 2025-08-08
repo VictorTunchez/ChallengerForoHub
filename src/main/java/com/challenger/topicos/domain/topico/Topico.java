@@ -27,7 +27,21 @@ public class Topico {
     private LocalDateTime fechaCreacion;
     private Boolean activo;
 
-    public void modificar(){
+    public void eliminar(){
         this.activo = false;
+    }
+
+
+    public void actualizar(ActualizacionTopicoDto datos) {
+        if(datos.mensaje() != null){
+            this.mensaje = datos.mensaje();
+        }
+        if(datos.nombreCurso() != null){
+            this.nombreCurso = datos.nombreCurso();
+        }
+        if(datos.titulo() != null){
+            this.titulo = datos.titulo();
+        }
+
     }
 }
