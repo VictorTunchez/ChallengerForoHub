@@ -3,6 +3,7 @@ package com.challenger.topicos.controller;
 import com.challenger.topicos.domain.topico.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ public class TopicoController {
     @Transactional
     public ResponseEntity registrar(@RequestBody RegistroTopicoDto datos){
         var topicoDetalle = service.registrar(datos);
-        return ResponseEntity.ok(topicoDetalle);
+        return ResponseEntity.status(HttpStatus.CREATED).body(topicoDetalle);
     }
 
     @GetMapping

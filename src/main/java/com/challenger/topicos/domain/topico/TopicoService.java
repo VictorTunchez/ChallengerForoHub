@@ -19,6 +19,9 @@ public class TopicoService {
         if(!usuarioRepository.existsById(datos.idUsuario())){
             throw new RuntimeException("No existe un usuario con ese ID");
         }
+        if(topicoRepository.existsByTituloAndMensaje(datos.titulo(), datos.mensaje())){
+            throw new RuntimeException("Ya existe un topico con el mismo titulo y mensaje");
+        }
         var usuario = usuarioRepository.getReferenceById(datos.idUsuario());
         var topico = new Topico(null, usuario, datos.mensaje(), datos.nombreCurso(), datos.titulo(), LocalDateTime.now(), true);
         topicoRepository.save(topico);
@@ -32,8 +35,8 @@ public class TopicoService {
     }
 
     public void eliminar(Long id) {
-        if(!topicoRepository.existsById(id)){
-            throw new RuntimeException("No existe un usuario con ese ID");
+        if(!topicoRepository.existsByIdAndActivoTrue(id)){
+            throw new RuntimeException("No existe un topico activo con ese ID");
         }
         var topico = topicoRepository.getReferenceById(id);
         topico.eliminar();
@@ -41,8 +44,8 @@ public class TopicoService {
 
 
     public DetalleTopicoDto actualizar(Long id, ActualizacionTopicoDto datos) {
-        if(!topicoRepository.existsById(id)){
-            throw new RuntimeException("No existe un usuario con ese ID");
+        if(!topicoRepository.existsByIdAndActivoTrue(id)){
+            throw new RuntimeException("No existe un topico activo con ese ID");
         }
         var topico = topicoRepository.getReferenceById(id);
         topico.actualizar(datos);
