@@ -46,4 +46,10 @@ public class TopicoController {
         return ResponseEntity.ok(detalles);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity detallarUnTopico(@PathVariable Long id){
+        var detalles = service.detallar(id);
+        return ResponseEntity.ok(detalles);
+    }
+
 }

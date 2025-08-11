@@ -51,4 +51,12 @@ public class TopicoService {
         topico.actualizar(datos);
         return new DetalleTopicoDto(topico);
     }
+
+    public DetalleUnTopicoDto detallar(Long id) {
+        if(!topicoRepository.existsById(id)){
+            throw new RuntimeException("No existe un topico con ese ID");
+        }
+        var topico = topicoRepository.getReferenceById(id);
+        return new DetalleUnTopicoDto(topico);
+    }
 }
